@@ -1,54 +1,120 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+### **Architecture Overview**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Frontend Server (Express.js + Vike)** ↔ **Backend Server (Spring Boot)** ↔ **Database (PostgreSQL)**
 
-## Expanding the ESLint configuration
+### **Component Responsibilities**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+#### **Frontend Server (Express.js with Vike)**
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Handles**: Initial page requests, SSR rendering, static asset serving
+    
+- **Renders**: HTML pages server-side using React components
+    
+- **Port**: 3000 (development)
+    
+- **Technology Stack**: Express.js + Vike + React + TypeScript
+    
+
+#### **Backend Server (Spring Boot)**
+
+- **Handles**: API requests, business logic, data processing, database operations
+    
+- **Provides**: RESTful API endpoints for CRUD operations
+    
+- **Port**: 8080 (default)
+    
+- **Technology Stack**: Spring Boot + JPA + PostgreSQL driver
+    
+
+#### **Database Layer (PostgreSQL)**
+
+- **Handles**: Data persistence, queries, transactions
+    
+- **Port**: 5432 (default)
+    
+
+### **Request Flow Patterns**
+
+#### **Initial Page Load (SSR Flow)**
+
+1. **Browser** → `GET /` → **Express.js Frontend Server**
+    
+2. **Express.js** → **Vike renderer** processes React components
+    
+3. **Vike** → **API calls** → **Spring Boot Backend** (if data needed)
+    
+4. **Spring Boot** → **PostgreSQL** (database queries)
+    
+5. **PostgreSQL** → **Spring Boot** (returns data)
+    
+6. **Spring Boot** → **Express.js** (API response)
+    
+7. **Express.js** → **Vike** renders complete HTML with data
+    
+8. **Express.js** → **Browser** (fully rendered HTML page)
+    
+
+#### **Client-Side Navigation (Hydrated SPA Flow)**
+
+1. **Browser** → **React Router** (client-side routing)
+    
+2. **React Components** → **Axios/Fetch** → **Spring Boot API**
+    
+3. **Spring Boot** → **PostgreSQL** → **Spring Boot**
+    
+4. **Spring Boot** → **React Components** (JSON response)
+    
+5. **React** updates DOM without full page reload
+    
+
+#### **API-Only Requests (AJAX Flow)**
+
+1. **Browser JavaScript** → `POST/PUT/DELETE /api/*` → **Spring Boot**
+    
+2. **Spring Boot** → **PostgreSQL** → **Spring Boot**
+    
+3. **Spring Boot** → **Browser** (JSON response)
+    
+4. **React** updates UI based on response
+    
+
+#### **Rendering Strategy**
+
+**Server-Side Rendering (SSR)**: The Express.js server with Vike handles the initial HTML generation. When a user first visits any route, the Express.js server:
+
+- Executes React components on the server
+    
+- Fetches necessary data from Spring Boot APIs
+    
+- Renders complete HTML with populated data
+    
+- Sends fully formed HTML to the browser
+    
+
+**Client-Side Hydration**: After the initial SSR load, React takes over in the browser, enabling:
+
+- Fast client-side navigation
+    
+- Interactive components
+    
+- Dynamic updates without full page reloads
+    
+
+### **Data Flow Architecture**
+
+``` text
+User Request → Express.js (SSR) → Spring Boot (API) → PostgreSQL (Data)
+                    ↓
+            Rendered HTML ← JSON Response ← Query Results
+                    ↓
+            Browser (Hydrated React App)
+                    ↓
+            Subsequent requests bypass Express.js:
+            React → Spring Boot API → PostgreSQL
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This architecture provides the benefits of both SSR (fast initial load, SEO-friendly) and SPA (smooth user interactions) while maintaining a clean separation between presentation logic (Express.js\/React) and business logic (Spring Boot).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
