@@ -1,19 +1,34 @@
 import express from "express";
-import { renderPage } from "vike/server";
+import { createDevMiddleware, renderPage } from "vike/server";
 
-const app = express();
+const isProduction = process.env.NODE_ENV === "production";
 
-app.get("*", async (req, res, next) => {
-    const pageContextInit = {
-        urlOriginal: req.originalUrl,
-    };
-    const pageContext = await renderPage(pageContextInit);
-    const { httpResponse } = pageContext;
-    if (!httpResponse) return next();
-    const { body, statusCode, contentType } = httpResponse;
-    res.status(statusCode).type(contentType).send(body);
-});
+const root = new URL("..", import.meta.url).pathname;
 
-const port = process.env.PORT || 3000;
-app.listen(port);
-console.log(`Server running at http://localhost:${port}`);
+async function startServer() {
+	const app = express();
+
+	if (isProduction) {
+		app.use(express.static(`${root}/dist/client`));
+	} else {
+		const { devMiddleware } = await createDevMiddleware({ root });
+		app.use(devMiddleware);
+	}
+
+	app.get(/.*/, async (req, res, next) => {
+		const pageContextInit = {
+			urlOriginal: req.originalUrl,
+		};
+		const pageContext = await renderPage(pageContextInit);
+		const { httpResponse } = pageContext;
+		if (!httpResponse) return next();
+		const { body, statusCode, contentType } = httpResponse;
+		res.status(statusCode).type(contentType).send(body);
+	});
+
+	const port = process.env.PORT || 3030;
+	app.listen(port);
+	console.log(`Server running at http://localhost:${port}`);
+}
+
+startServer();
