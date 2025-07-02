@@ -50,12 +50,12 @@ const EmployeeManagement: React.FC<EmployeeManagementProps> = ({
 		setAddEmployeeDialogOpen(false);
 	};
 
-	const handleDeleteEmployee = (employeeId: number) => {
+	const handleDeleteEmployee = (employeeId: string) => {
 		// TODO: Implement delete employee logic with confirmation
 		console.log("Delete employee:", employeeId);
 	};
 
-	const handleEditEmployee = (employeeId: number) => {
+	const handleEditEmployee = (employeeId: string) => {
 		// TODO: Implement edit employee logic
 		console.log("Edit employee:", employeeId);
 	};

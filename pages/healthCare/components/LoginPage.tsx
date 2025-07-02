@@ -1,5 +1,6 @@
 // Login page component for healthcare management system
 import type React from "react";
+import { Input } from "@/components/ui/input";
 import type { LoginFormProps } from "./types";
 
 interface LoginPageProps extends LoginFormProps {}
@@ -55,15 +56,12 @@ const LoginPage: React.FC<LoginPageProps> = ({
 								>
 									Email or Username
 								</label>
-								<input
+								<Input
 									id="username"
 									type="text"
 									placeholder="Enter your email or username"
 									value={username}
-									onChange={(e) =>
-										onUsernameChange(e.target.value)
-									}
-									className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+									onChange={(e) => onUsernameChange(e.target.value)}
 								/>
 							</div>
 
@@ -83,15 +81,12 @@ const LoginPage: React.FC<LoginPageProps> = ({
 										Forgot password?
 									</a>
 								</div>
-								<input
+								<Input
 									id="password"
 									type="password"
 									placeholder="Enter your password"
 									value={password}
-									onChange={(e) =>
-										onPasswordChange(e.target.value)
-									}
-									className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+									onChange={(e) => onPasswordChange(e.target.value)}
 								/>
 							</div>
 

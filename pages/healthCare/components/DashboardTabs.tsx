@@ -26,11 +26,7 @@ const DashboardTabs: React.FC<DashboardTabsProps> = ({
 	onTabChange,
 }) => {
 	return (
-		<Tabs
-			defaultValue="employees"
-			className="w-full"
-			onValueChange={onTabChange}
-		>
+		<Tabs value={activeTab} className="w-full" onValueChange={onTabChange}>
 			{/* Tab navigation with icons and labels */}
 			<TabsList className="grid grid-cols-3 mb-8">
 				<TabsTrigger
@@ -56,17 +52,23 @@ const DashboardTabs: React.FC<DashboardTabsProps> = ({
 			</TabsList>
 
 			{/* Tab content sections */}
-			<TabsContent value="employees">
-				<EmployeeManagement employees={employees} />
-			</TabsContent>
+			{activeTab === "employees" && (
+				<TabsContent value="employees">
+					<EmployeeManagement employees={employees} />
+				</TabsContent>
+			)}
 
-			<TabsContent value="hazards">
-				<HazardManagement hazards={hazards} />
-			</TabsContent>
+			{activeTab === "hazards" && (
+				<TabsContent value="hazards">
+					<HazardManagement hazards={hazards} />
+				</TabsContent>
+			)}
 
-			<TabsContent value="examinations">
-				<ExaminationSchedule examinations={examinations} />
-			</TabsContent>
+			{activeTab === "examinations" && (
+				<TabsContent value="examinations">
+					<ExaminationSchedule examinations={examinations} />
+				</TabsContent>
+			)}
 		</Tabs>
 	);
 };

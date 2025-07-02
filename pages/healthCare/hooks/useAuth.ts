@@ -1,42 +1,29 @@
-// Simplified authentication without React hooks - just static UI functionality
-/**
- * Simple authentication handler without state management
- * Returns static values and basic login function for UI testing
- */
-export const useAuth = () => {
-	// Static values for UI display
-	const isLoggedIn = false;
-	const username = "";
-	const password = "";
+import type React from "react";
+import { useCallback, useState } from "react";
 
-	// Simple login handler that always succeeds
-	const handleLogin = (e: React.FormEvent) => {
-		e.preventDefault();
-		console.log("Login button clicked - redirecting to dashboard");
-		// Force page reload to show dashboard
-		window.location.reload();
-	};
+// Simplified authentication hook with proper state management
+export const useAuth = () => {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
 
 	// Simple logout handler
-	const handleLogout = () => {
+	const handleLogout = useCallback(() => {
 		console.log("Logout clicked");
 		window.location.reload();
-	};
+	}, []);
 
-	// Dummy handlers for input changes (no state management)
-	const handleUsernameChange = (value: string) => {
-		console.log("Username input:", value);
-	};
+	// Handlers for input changes with state management
+	const handleUsernameChange = useCallback((value: string) => {
+		setUsername(value);
+	}, []);
 
-	const handlePasswordChange = (value: string) => {
-		console.log("Password input:", value);
-	};
+	const handlePasswordChange = useCallback((value: string) => {
+		setPassword(value);
+	}, []);
 
 	return {
-		isLoggedIn,
 		username,
 		password,
-		handleLogin,
 		handleLogout,
 		handleUsernameChange,
 		handlePasswordChange,
