@@ -1,5 +1,6 @@
 // Header component for the healthcare dashboard
 import type React from "react";
+import { navigate } from "vike/client/router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import type { DashboardHeaderProps } from "./types";
@@ -43,7 +44,10 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({ onLogout }) => {
 							<Button
 								variant="ghost"
 								size="sm"
-								onClick={onLogout}
+								onClick={() => {
+									onLogout();
+									navigate("/healthCare");
+								}}
 								className="ml-2 text-gray-600 hover:text-gray-900 !rounded-button whitespace-nowrap"
 							>
 								<i className="fas fa-sign-out-alt mr-1"></i>{" "}

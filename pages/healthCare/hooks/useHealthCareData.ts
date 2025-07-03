@@ -59,7 +59,8 @@ const createInitialHazards = () => [
 	{
 		id: "1",
 		title: "Ozone Exposure Risk",
-		description: "High levels of ozone detected in laboratory area requiring immediate attention",
+		description:
+			"High levels of ozone detected in laboratory area requiring immediate attention",
 		location: "Laboratory Room A",
 		severity: "high" as const,
 		reportedBy: "John Smith",
@@ -70,7 +71,8 @@ const createInitialHazards = () => [
 	{
 		id: "2",
 		title: "Lead Contamination",
-		description: "Potential lead exposure in production area due to equipment malfunction",
+		description:
+			"Potential lead exposure in production area due to equipment malfunction",
 		location: "Production Floor B",
 		severity: "critical" as const,
 		reportedBy: "Emily Johnson",
@@ -92,7 +94,8 @@ const createInitialHazards = () => [
 	{
 		id: "4",
 		title: "Excessive Noise Levels",
-		description: "Noise levels exceeding safety standards in maintenance area",
+		description:
+			"Noise levels exceeding safety standards in maintenance area",
 		location: "Maintenance Workshop",
 		severity: "low" as const,
 		reportedBy: "Sarah Davis",
@@ -103,7 +106,8 @@ const createInitialHazards = () => [
 	{
 		id: "5",
 		title: "Chemical Vapor Leak",
-		description: "Chemical vapors detected in ventilation system requiring investigation",
+		description:
+			"Chemical vapors detected in ventilation system requiring investigation",
 		location: "Research Lab D",
 		severity: "medium" as const,
 		reportedBy: "Robert Wilson",
@@ -174,7 +178,9 @@ export const useHealthCareData = () => {
 	// Use lazy initial state to avoid re-creating arrays on every render
 	const [employees] = useState<Employee[]>(() => createInitialEmployees());
 	const [hazards] = useState<Hazard[]>(() => createInitialHazards());
-	const [examinations] = useState<Examination[]>(() => createInitialExaminations());
+	const [examinations] = useState<Examination[]>(() =>
+		createInitialExaminations(),
+	);
 
 	return {
 		employees,

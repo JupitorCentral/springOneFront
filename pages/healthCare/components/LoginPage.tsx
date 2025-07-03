@@ -61,7 +61,9 @@ const LoginPage: React.FC<LoginPageProps> = ({
 									type="text"
 									placeholder="Enter your email or username"
 									value={username}
-									onChange={(e) => onUsernameChange(e.target.value)}
+									onChange={(e) =>
+										onUsernameChange(e.target.value)
+									}
 								/>
 							</div>
 
@@ -86,7 +88,9 @@ const LoginPage: React.FC<LoginPageProps> = ({
 									type="password"
 									placeholder="Enter your password"
 									value={password}
-									onChange={(e) => onPasswordChange(e.target.value)}
+									onChange={(e) =>
+										onPasswordChange(e.target.value)
+									}
 								/>
 							</div>
 

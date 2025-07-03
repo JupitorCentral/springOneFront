@@ -1,12 +1,15 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(grep:*)",
-      "Bash(find:*)",
-      "Bash(npm ls:*)",
-      "Bash(npm install:*)",
-      "Bash(rm:*)"
-    ],
-    "deny": []
-  }
+	"permissions": {
+		"allow": [
+			"Bash(grep:*)",
+			"Bash(find:*)",
+			"Bash(npm ls:*)",
+			"Bash(npm install:*)",
+			"Bash(rm:*)",
+			"mcp__perplexity-mcp__perplexity_search_web",
+			"mcp__perplexity-ask__perplexity_ask",
+			"Bash(mkdir:*)"
+		],
+		"deny": []
+	}
 }

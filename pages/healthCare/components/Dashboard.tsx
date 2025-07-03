@@ -30,7 +30,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
 			<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 				{/* Dashboard title and description */}
 				<div className="mb-8">
-					<h2 className="text-2xl font-bold text-gray-800">Dashboard</h2>
+					<h2 className="text-2xl font-bold text-gray-800">
+						Dashboard
+					</h2>
 					<p className="text-gray-600">
 						Manage employees, hazards, and examination schedules
 					</p>
@@ -39,8 +41,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
 				{/* Dashboard tabs with organized components */}
 				<DashboardTabs
 					employees={employees}
-					hazards={hazards}
-					examinations={examinations}
 					activeTab={activeTab}
 					onTabChange={handleTabChange}
 				/>
