@@ -27,14 +27,14 @@ const DashboardTabs: React.FC<DashboardTabsProps> = ({
 				<TabsTrigger
 					value="employees"
 					className="!rounded-button whitespace-nowrap"
-					onClick={() => window.location.href = "/healthCare/EmployeeManagement"}
+					onClick={() => navigate("/healthCare/EmployeeManagement")}
 				>
 					<i className="fas fa-users mr-2"></i> Employee Management
 				</TabsTrigger>
 				<TabsTrigger
 					value="hazards"
 					className="!rounded-button whitespace-nowrap"
-					onClick={() => window.location.href = "/healthCare/hazard-management"}
+					onClick={() => navigate("/healthCare/hazard-management")}
 				>
 					<i className="fas fa-exclamation-triangle mr-2"></i> Hazard
 					Management
@@ -42,7 +42,7 @@ const DashboardTabs: React.FC<DashboardTabsProps> = ({
 				<TabsTrigger
 					value="examinations"
 					className="!rounded-button whitespace-nowrap"
-					onClick={() => window.location.href = "/healthCare/examination-schedule"}
+					onClick={() => navigate("/healthCare/examination-schedule")}
 				>
 					<i className="fas fa-calendar-check mr-2"></i> Examination
 					Schedule

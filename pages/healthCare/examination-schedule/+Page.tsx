@@ -29,7 +29,9 @@ const ExaminationSchedulePage: React.FC = () => {
 						<TabsTrigger
 							value="employees"
 							className="!rounded-button whitespace-nowrap"
-							onClick={() => window.location.href = "/healthCare/EmployeeManagement"}
+							onClick={() =>
+								navigate("/healthCare/EmployeeManagement")
+							}
 						>
 							<i className="fas fa-users mr-2"></i> Employee
 							Management

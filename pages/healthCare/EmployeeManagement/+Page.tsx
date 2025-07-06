@@ -37,7 +37,7 @@ const EmployeeManagementPage: React.FC = () => {
 							value="hazards"
 							className="!rounded-button whitespace-nowrap"
 							onClick={() =>
-								window.location.href = "/healthCare/hazard-management"
+								navigate("/healthCare/hazard-management")
 							}
 						>
 							<i className="fas fa-exclamation-triangle mr-2"></i>{" "}
@@ -47,7 +47,7 @@ const EmployeeManagementPage: React.FC = () => {
 							value="examinations"
 							className="!rounded-button whitespace-nowrap"
 							onClick={() =>
-								window.location.href = "/healthCare/examination-schedule"
+								navigate("/healthCare/examination-schedule")
 							}
 						>
 							<i className="fas fa-calendar-check mr-2"></i>{" "}
